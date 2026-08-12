@@ -363,6 +363,9 @@
 </head>
 
 <body>
+<audio id="loveSong" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>   
 
 <!-- Floating Hearts -->
 
@@ -380,6 +383,31 @@ const YOUR_NAME = "Yousef";
 const FIANCE_NAME = "Shahd";
 
 const LOVE_DATE = "2025-10-10";
+
+const loveSong = document.getElementById("loveSong");
+
+loveSong.volume = 0.5;
+
+// Try to start automatically
+window.addEventListener("load", () => {
+    loveSong.play().catch(() => {
+        console.log("Autoplay blocked. Waiting for user interaction.");
+    });
+});
+
+// If browser blocks autoplay,
+// start music on the first interaction
+function startMusic() {
+    loveSong.play().catch(() => {});
+    
+    document.removeEventListener("click", startMusic);
+    document.removeEventListener("touchstart", startMusic);
+    document.removeEventListener("keydown", startMusic);
+}
+
+document.addEventListener("click", startMusic);
+document.addEventListener("touchstart", startMusic);
+document.addEventListener("keydown", startMusic);
 
 </script>
 
